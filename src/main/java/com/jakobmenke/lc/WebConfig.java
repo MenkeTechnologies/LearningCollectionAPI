@@ -1,4 +1,4 @@
-package com.exampleaaaa.demo;
+package com.jakobmenke.lc;
 
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;

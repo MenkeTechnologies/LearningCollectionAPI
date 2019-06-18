@@ -1,4 +1,4 @@
-package com.exampleaaaa.demo;
+package com.jakobmenke.lc;
 
 import lombok.Data;
 
