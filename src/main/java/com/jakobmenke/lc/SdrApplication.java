@@ -13,6 +13,7 @@ import springfox.documentation.spring.data.rest.configuration.SpringDataRestConf
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
@@ -29,6 +30,16 @@ public class SdrApplication {
 
     @RestController
     class RandomLearning {
+        @GetMapping("/add")
+        LearningCollection add(@RequestParam("learning") String learning) {
+
+            LearningCollection learningCollection = new LearningCollection();
+            learningCollection.setCategory("programming");
+            learningCollection.setLearning(learning);
+            learningCollection.setDateAdded(LocalDate.now());
+
+            return lcRepo.save(learningCollection);
+        }
 
         @GetMapping("/filter")
         List<String> filterLearn(@RequestParam("learning") String learning) {
@@ -47,6 +58,7 @@ public class SdrApplication {
 
             return ll.stream().map(LearningCollection::getLearning).limit(count).collect(Collectors.toList());
         }
+
         @GetMapping("/recent/{count}")
         List<LearningCollection> getLearningItemRecent(@PathVariable("count") Integer count) {
 
@@ -78,6 +90,7 @@ public class SdrApplication {
 
             return ll.get(0).getLearning();
         }
+
         @GetMapping("/randoms/{count}")
         List<String> getLearningItemCountShort(@PathVariable("count") Integer count) {
 
@@ -87,6 +100,7 @@ public class SdrApplication {
 
             return ll.stream().map(LearningCollection::getLearning).limit(count).collect(Collectors.toList());
         }
+
         @GetMapping("/random/{count}")
         List<LearningCollection> getLearningItemCount(@PathVariable("count") Integer count) {
 
@@ -96,6 +110,7 @@ public class SdrApplication {
 
             return ll.stream().limit(count).collect(Collectors.toList());
         }
+
         @GetMapping("/random")
         LearningCollection getLearningItem() {
 
