@@ -48,6 +48,16 @@ public class SdrApplication {
 
             return ll.stream().map(LearningCollection::getLearning).collect(Collectors.toList());
         }
+        @GetMapping("/recents")
+        List<String> getLearningItemRecentShortDefault() {
+            long count = 20L;
+
+            List<LearningCollection> ll = StreamSupport.stream(lcRepo.findAll().spliterator(), true).collect(Collectors.toList());
+
+            Collections.reverse(ll);
+
+            return ll.stream().map(LearningCollection::getLearning).limit(count).collect(Collectors.toList());
+        }
 
         @GetMapping("/recents/{count}")
         List<String> getLearningItemRecentShort(@PathVariable("count") Integer count) {
