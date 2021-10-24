@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.spring.data.rest.configuration.SpringDataRestConfiguration;
-import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
@@ -22,7 +22,7 @@ import java.util.stream.StreamSupport;
 
 @SpringBootApplication
 @Slf4j
-@EnableSwagger2WebMvc
+@EnableSwagger2
 @Import(SpringDataRestConfiguration.class)
 public class SdrApplication {
     @Autowired
@@ -48,6 +48,7 @@ public class SdrApplication {
 
             return ll.stream().map(LearningCollection::getLearning).collect(Collectors.toList());
         }
+
         @GetMapping("/recents")
         List<String> getLearningItemRecentShortDefault() {
             long count = 20L;

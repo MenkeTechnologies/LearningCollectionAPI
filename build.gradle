@@ -1,19 +1,17 @@
 plugins {
-    id 'org.springframework.boot' version '2.1.4.RELEASE'
-    id 'java'
-
+    id 'org.springframework.boot' version '2.5.6'
+    id 'groovy'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
 ext {
-    queryDslVersion = '4.2.1'
-    swag = '3.0.0-SNAPSHOT'
+    queryDslV = '5.0.0'
+    swaggerV = '3.0.0'
 }
 
-apply plugin: 'io.spring.dependency-management'
-
 group = 'com.menketechnologies'
-version = ''
-sourceCompatibility = '1.8'
+version = '1.0.1'
+sourceCompatibility = '11'
 
 configurations {
     compileOnly {
@@ -23,25 +21,23 @@ configurations {
 
 repositories {
     mavenCentral()
-    maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-
-    compile "com.querydsl:querydsl-jpa:$queryDslVersion"
-
-    compileOnly "com.querydsl:querydsl-apt:$queryDslVersion:jpa"
-
-    compile("io.springfox:springfox-swagger2:$swag")
-    compile("io.springfox:springfox-data-rest:$swag")
-    compile("io.springfox:springfox-swagger-ui:$swag")
-
-
-    compileOnly 'org.projectlombok:lombok'
+    implementation "com.querydsl:querydsl-jpa:$queryDslV"
+    implementation "com.querydsl:querydsl-apt:$queryDslV"
+    implementation "io.springfox:springfox-swagger2:$swaggerV"
+    implementation "io.springfox:springfox-data-rest:$swaggerV"
+    implementation "io.springfox:springfox-swagger-ui:$swaggerV"
+    implementation 'org.projectlombok:lombok'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
 }
