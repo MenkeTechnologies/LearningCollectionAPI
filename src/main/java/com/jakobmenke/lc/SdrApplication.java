@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import springfox.documentation.spring.data.rest.configuration.SpringDataRestConfiguration;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
@@ -22,8 +20,6 @@ import java.util.stream.StreamSupport;
 
 @SpringBootApplication
 @Slf4j
-@EnableSwagger2
-@Import(SpringDataRestConfiguration.class)
 public class SdrApplication {
     @Autowired
     LCRepo lcRepo;
