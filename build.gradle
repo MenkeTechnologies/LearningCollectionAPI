@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.2'
+    id 'org.springframework.boot' version '2.6.7'
     id 'groovy'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
@@ -7,7 +7,7 @@ plugins {
 ext {
     queryDslV = '5.0.0'
     swaggerV = '3.0.0'
-    sdV = '1.6.2'
+    sdV = '1.6.8'
 }
 
 group = 'com.menketechnologies'
@@ -29,8 +29,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     implementation "com.querydsl:querydsl-jpa:$queryDslV"
     implementation "com.querydsl:querydsl-apt:$queryDslV"
-    implementation 'org.springdoc:springdoc-openapi-ui:$sdV'
-    implementation 'org.springdoc:springdoc-openapi-data-rest:$sdV'
+    implementation "org.springdoc:springdoc-openapi-ui:$sdV"
+    implementation "org.springdoc:springdoc-openapi-data-rest:$sdV"
     implementation 'org.projectlombok:lombok'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'mysql:mysql-connector-java'
