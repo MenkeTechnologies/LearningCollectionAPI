@@ -1,13 +1,12 @@
 plugins {
-    id 'org.springframework.boot' version '2.6.7'
+    id 'org.springframework.boot' version '2.7.0'
     id 'groovy'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
 ext {
     queryDslV = '5.0.0'
-    swaggerV = '3.0.0'
-    sdV = '1.6.8'
+    sdV = '1.6.9'
 }
 
 group = 'com.menketechnologies'
