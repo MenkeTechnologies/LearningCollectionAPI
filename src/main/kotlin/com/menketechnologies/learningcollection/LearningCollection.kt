@@ -10,6 +10,7 @@ class LearningCollection : Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     var id: Long = 0
 
     @Column
@@ -20,6 +21,16 @@ class LearningCollection : Serializable {
 
     @Column
     lateinit var dateAdded: Date
+
+
+    constructor(learning: String, category: String, dateAdded: Date) {
+        this.learning = learning
+        this.category = category
+        this.dateAdded = dateAdded
+    }
+
+    constructor()
+
 
     companion object {
         private const val serialVersionUID = 1L

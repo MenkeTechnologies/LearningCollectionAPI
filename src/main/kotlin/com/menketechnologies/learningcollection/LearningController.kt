@@ -17,13 +17,8 @@ class LearningController {
     private val log = LoggerFactory.getLogger(javaClass)
 
     @GetMapping("/add")
-    fun add(@RequestParam("learning") learning: String): LearningCollection {
-        val learningCollection = LearningCollection()
-        learningCollection.category = "programming"
-        learningCollection.learning = learning
-        learningCollection.dateAdded = Date()
-        return lcRepo.save(learningCollection)
-    }
+    fun add(@RequestParam("learning") learning: String): LearningCollection =
+        lcRepo.save(LearningCollection(learning, "programming", Date()))
 
     @GetMapping("/filter")
     fun filterLearn(@RequestParam("learning") learning: String) =
@@ -37,15 +32,13 @@ class LearningController {
         lcRepo.findAll().map { it.learning }.reversed().take(count)
 
     @GetMapping("/recent/{count}")
-    fun getLearningItemRecent(@PathVariable("count") count: Int) =
-        lcRepo.findAll().reversed().take(count)
+    fun getLearningItemRecent(@PathVariable("count") count: Int) = lcRepo.findAll().reversed().take(count)
 
     @GetMapping("/dump")
     fun getDump(res: HttpServletResponse) {
         log.info("mysqldump to servlet output stream")
         res.writer.println(
-            Runtime.getRuntime().exec("mysqldump --extended-insert=FALSE root").inputStream
-                .bufferedReader().readText()
+            Runtime.getRuntime().exec("mysqldump --extended-insert=FALSE root").inputStream.bufferedReader().readText()
         )
     }
 
@@ -57,8 +50,7 @@ class LearningController {
         lcRepo.findAll().shuffled().take(count).map { it.learning }
 
     @GetMapping("/random/{count}")
-    fun getLearningItemCount(@PathVariable("count") count: Int) =
-        lcRepo.findAll().shuffled().take(count)
+    fun getLearningItemCount(@PathVariable("count") count: Int) = lcRepo.findAll().shuffled().take(count)
 
     @GetMapping("/random")
     fun learningItem() = lcRepo.findAll().shuffled().first()
