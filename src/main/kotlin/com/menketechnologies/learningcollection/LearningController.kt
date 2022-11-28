@@ -18,14 +18,14 @@ class LearningController {
 
     @GetMapping("/add")
     fun add(@RequestParam("learning") learning: String): LearningCollection =
-        lcRepo.save(LearningCollection(learning, "programming", Date()))
+        lcRepo.save(LearningCollection(learning, DEFAULT_CAT, Date()))
 
     @GetMapping("/filter")
     fun filterLearn(@RequestParam("learning") learning: String) =
         lcRepo.findAllByLearningContaining(learning).map { it.learning }
 
     @GetMapping("/recents")
-    fun learningItemRecentShortDefault() = lcRepo.findAll().map { it.learning }.reversed().take(20)
+    fun learningItemRecentShortDefault() = lcRepo.findAll().map { it.learning }.reversed().take(SHORT_CNT)
 
     @GetMapping("/recents/{count}")
     fun getLearningItemRecentShort(@PathVariable("count") count: Int) =
@@ -38,7 +38,8 @@ class LearningController {
     fun getDump(res: HttpServletResponse) {
         log.info("mysqldump to servlet output stream")
         res.writer.println(
-            Runtime.getRuntime().exec("mysqldump --extended-insert=FALSE root").inputStream.bufferedReader().readText()
+            Runtime.getRuntime().exec("mysqldump --extended-insert=FALSE $DB_NAME")
+                .inputStream.bufferedReader().readText()
         )
     }
 

@@ -1,4 +1,4 @@
-package com.menketechnologies.learningcollection;
+package com.menketechnologies.learningcollection
 
 import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.query.Param
