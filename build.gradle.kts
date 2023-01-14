@@ -24,7 +24,7 @@ repositories {
 
 dependencies {
     val queryDslV = "5.0.0"
-    val sdV = "1.6.9"
+    val sdV = "1.6.14"
    
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-rest")

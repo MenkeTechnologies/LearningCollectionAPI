@@ -17,7 +17,7 @@ class LearningController {
     private val log = LoggerFactory.getLogger(javaClass)
 
     @GetMapping("/add")
-    fun add(@RequestParam("learning") learning: String): LearningCollection =
+    fun add(@RequestParam("learning") learning: String) =
         lcRepo.save(LearningCollection(learning, DEFAULT_CAT, Date()))
 
     @GetMapping("/filter")
@@ -36,9 +36,9 @@ class LearningController {
 
     @GetMapping("/dump")
     fun getDump(res: HttpServletResponse) {
-        log.info("mysqldump to servlet output stream")
+        log.debug("mysqldump to servlet output stream")
         res.writer.println(
-            Runtime.getRuntime().exec("mysqldump --extended-insert=FALSE $DB_NAME")
+            Runtime.getRuntime().exec(DUMP)
                 .inputStream.bufferedReader().readText()
         )
     }
