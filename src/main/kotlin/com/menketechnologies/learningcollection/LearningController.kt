@@ -18,18 +18,18 @@ class LearningController {
 
     @GetMapping("/add")
     fun add(@RequestParam("learning") learning: String) =
-        lcRepo.save(LearningCollection(learning, DEFAULT_CAT, Date()))
+            lcRepo.save(LearningCollection(learning, DEFAULT_CAT, Date()))
 
     @GetMapping("/filter")
     fun filterLearn(@RequestParam("learning") learning: String) =
-        lcRepo.findAllByLearningContaining(learning).map { it.learning }
+            lcRepo.findAllByLearningContaining(learning).map { it.learning }
 
     @GetMapping("/recents")
     fun learningItemRecentShortDefault() = lcRepo.findAll().map { it.learning }.reversed().take(SHORT_CNT)
 
     @GetMapping("/recents/{count}")
     fun getLearningItemRecentShort(@PathVariable("count") count: Int) =
-        lcRepo.findAll().map { it.learning }.reversed().take(count)
+            lcRepo.findAll().map { it.learning }.reversed().take(count)
 
     @GetMapping("/recent/{count}")
     fun getLearningItemRecent(@PathVariable("count") count: Int) = lcRepo.findAll().reversed().take(count)
@@ -38,8 +38,8 @@ class LearningController {
     fun getDump(res: HttpServletResponse) {
         log.debug("mysqldump to servlet output stream")
         res.writer.println(
-            Runtime.getRuntime().exec(DUMP)
-                .inputStream.bufferedReader().readText()
+                Runtime.getRuntime().exec(DUMP)
+                        .inputStream.bufferedReader().readText()
         )
     }
 
@@ -48,7 +48,7 @@ class LearningController {
 
     @GetMapping("/randoms/{count}")
     fun getLearningItemCountShort(@PathVariable("count") count: Int) =
-        lcRepo.findAll().shuffled().take(count).map { it.learning }
+            lcRepo.findAll().shuffled().take(count).map { it.learning }
 
     @GetMapping("/random/{count}")
     fun getLearningItemCount(@PathVariable("count") count: Int) = lcRepo.findAll().shuffled().take(count)

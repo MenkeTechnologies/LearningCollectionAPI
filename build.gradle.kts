@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.7.6"
+    id("org.springframework.boot") version "2.7.14"
     id("io.spring.dependency-management") version "1.0.15.RELEASE"
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
@@ -25,7 +25,7 @@ repositories {
 dependencies {
     val queryDslV = "5.0.0"
     val sdV = "1.6.14"
-   
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-rest")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -36,7 +36,7 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-ui:$sdV")
     implementation("org.springdoc:springdoc-openapi-data-rest:$sdV")
     compileOnly("org.projectlombok:lombok")
-    runtimeOnly("mysql:mysql-connector-java")
+    runtimeOnly("com.mysql:mysql-connector-j")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
