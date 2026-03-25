@@ -1,100 +1,188 @@
-# LearningCollectionAPI
+```
+ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ ░  ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄  ░
+ ░  █                                                                        █  ░
+ ░  █  ██╗     ███████╗ █████╗ ██████╗ ███╗   ██╗██╗███╗   ██╗ ██████╗      █  ░
+ ░  █  ██║     ██╔════╝██╔══██╗██╔══██╗████╗  ██║██║████╗  ██║██╔════╝      █  ░
+ ░  █  ██║     █████╗  ███████║██████╔╝██╔██╗ ██║██║██╔██╗ ██║██║  ███╗     █  ░
+ ░  █  ██║     ██╔══╝  ██╔══██║██╔══██╗██║╚██╗██║██║██║╚██╗██║██║   ██║     █  ░
+ ░  █  ███████╗███████╗██║  ██║██║  ██║██║ ╚████║██║██║ ╚████║╚██████╔╝     █  ░
+ ░  █  ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝╚═╝  ╚═══╝ ╚═════╝  █  ░
+ ░  █                                                                        █  ░
+ ░  █   ██████╗ ██████╗ ██╗     ██╗     ███████╗ ██████╗████████╗██╗ █████╗  █  ░
+ ░  █  ██╔════╝██╔═══██╗██║     ██║     ██╔════╝██╔════╝╚══██╔══╝██║██╔══██╗ █  ░
+ ░  █  ██║     ██║   ██║██║     ██║     █████╗  ██║        ██║   ██║██║  ██║ █  ░
+ ░  █  ██║     ██║   ██║██║     ██║     ██╔══╝  ██║        ██║   ██║██║  ██║ █  ░
+ ░  █  ╚██████╗╚██████╔╝███████╗███████╗███████╗╚██████╗   ██║   ██║╚█████╔╝ █  ░
+ ░  █   ╚═════╝ ╚═════╝ ╚══════╝╚══════╝╚══════╝ ╚═════╝   ╚═╝   ╚═╝╚════╝  █  ░
+ ░  █                                                                        █  ░
+ ░  █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█  ░
+ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+         ▓▓▓ NEURAL KNOWLEDGE REPOSITORY // API v4.0.4 // JACKED INTO JVM ▓▓▓
+```
 
-A Spring Boot REST API for managing a personal collection of learning notes, built with Kotlin.
+<div align="center">
 
-Created by [MenkeTechnologies](https://github.com/MenkeTechnologies)
+### `// NEURAL KNOWLEDGE REPOSITORY v4.0.4`
 
-## Tech Stack
+> _A Spring Boot REST API for managing a personal collection of learning notes._
+> _Built with Kotlin. Jacked into the JVM._
 
-- **Kotlin** + **Spring Boot 4.0.4**
-- **Spring Data JPA** with Hibernate (MySQL)
-- **Spring Data REST** for auto-generated CRUD endpoints
-- **QueryDSL** for type-safe queries
-- **SpringDoc OpenAPI** for API documentation
-- **Gradle 9.2.1**
+**`[ CREATED BY ]`** [MenkeTechnologies](https://github.com/MenkeTechnologies)
 
-## Getting Started
+---
+
+```
+╔══════════════════════════════════════════════════════════╗
+║  STATUS: ONLINE  //  PORT: 8000  //  PROFILE: dev       ║
+╚══════════════════════════════════════════════════════════╝
+```
+
+</div>
+
+---
+
+## `> SYSTEM_SPECS.dat`
+
+```
+┌──────────────────────────────────────────┐
+│  RUNTIME    :: Kotlin 2.2.21 + Spring Boot 4.0.4 │
+│  DATASTORE  :: MySQL via Spring Data JPA         │
+│  INTERFACE  :: Spring Data REST (CRUD)           │
+│  QUERY_ENG  :: QueryDSL 5.0.0 (type-safe)       │
+│  API_DOCS   :: SpringDoc OpenAPI 1.6.14          │
+│  BUILD_SYS  :: Gradle 9.2.1                     │
+│  JDK        :: 17 (toolchain)                    │
+└──────────────────────────────────────────┘
+```
+
+---
+
+## `> BOOT_SEQUENCE.init`
 
 ### Prerequisites
 
-- JDK 17+
-- MySQL running on `localhost:3306`
+```
+[!] JDK 17+ implant required (toolchain locked to 17)
+[!] Kotlin 2.2.21 runtime (managed by Gradle — no manual install)
+[!] Gradle 9.2.1 (use included wrapper — no manual install)
+[!] MySQL daemon must be live on localhost:3306
+[!] Database 'root' must exist (default schema target)
+```
 
-### Run
+### Jack In
 
 ```bash
+# >> DEFAULT BOOT — binds to port defined in active profile <<
 ./gradlew bootRun
+
+# >> BOOT WITH DEV PROFILE — port 8000, SQL logging ON <<
+./gradlew bootRun --args='--spring.profiles.active=dev'
+
+# >> BOOT WITH PRODUCTION PROFILE <<
+./gradlew bootRun --args='--spring.profiles.active=sr5'
 ```
 
-The server starts on port **8000** (dev profile).
-
-### Build
+### Compile Firmware
 
 ```bash
-./gradlew build        # compile + test
-./gradlew bootJar      # executable JAR
-./gradlew bootBuildImage  # OCI Docker image
+./gradlew build          # compile + run diagnostics
+./gradlew bootJar        # package executable construct
+./gradlew bootBuildImage # forge OCI Docker container
 ```
 
-## API Endpoints
+### Run Compiled Artifact
 
-### Add & Search
+```bash
+# >> EXECUTE JAR DIRECTLY <<
+java -jar build/libs/LearningCollectionAPI-0.0.1-SNAPSHOT.jar
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/add?learning=<text>` | Add a new learning item |
-| GET | `/filter?learning=<text>` | Search items containing query text |
+# >> EXECUTE WITH SPECIFIC PROFILE <<
+java -jar build/libs/LearningCollectionAPI-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
+```
 
-### Recent Items
+---
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/recents` | Last 20 items (short format) |
-| GET | `/recents/{count}` | Last N items (short format) |
-| GET | `/recent/{count}` | Last N items (full format) |
+## `> ACCESS_PROTOCOLS.net`
 
-### Random Items
+### `:: DATA_INJECT & SEARCH_QUERY ::`
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/random` | One random item (full format) |
-| GET | `/randoms` | One random item (short format) |
-| GET | `/randoms/{count}` | N random items (short format) |
-| GET | `/random/{count}` | N random items (full format) |
+| Protocol | Endpoint | Function |
+|:--------:|----------|----------|
+| `GET` | `/add?learning=<text>` | Upload new data fragment |
+| `GET` | `/filter?learning=<text>` | Query the knowledge matrix |
 
-### Utility
+### `:: RECENT_MEMORY_ACCESS ::`
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/dump` | MySQL database dump |
-| — | `/learning` | Auto-generated CRUD (Spring Data REST) |
+| Protocol | Endpoint | Function |
+|:--------:|----------|----------|
+| `GET` | `/recents` | Retrieve last 20 fragments (compressed) |
+| `GET` | `/recents/{count}` | Retrieve last N fragments (compressed) |
+| `GET` | `/recent/{count}` | Retrieve last N fragments (full decrypt) |
 
-## Project Structure
+### `:: RANDOM_ACCESS_MEMORY ::`
+
+| Protocol | Endpoint | Function |
+|:--------:|----------|----------|
+| `GET` | `/random` | Pull 1 random fragment (full decrypt) |
+| `GET` | `/randoms` | Pull 1 random fragment (compressed) |
+| `GET` | `/randoms/{count}` | Pull N random fragments (compressed) |
+| `GET` | `/random/{count}` | Pull N random fragments (full decrypt) |
+
+### `:: SYSTEM_UTILS ::`
+
+| Protocol | Endpoint | Function |
+|:--------:|----------|----------|
+| `GET` | `/dump` | Full MySQL memory extraction |
+| `---` | `/learning` | Auto-generated CRUD interface |
+
+---
+
+## `> DIRECTORY_MAP.sys`
 
 ```
 src/main/kotlin/com/menketechnologies/learningcollection/
-  LearningCollectionApplication.kt   # Entry point
-  LearningController.kt              # REST endpoints
-  LearningCollection.kt              # JPA entity (id, learning, category, dateAdded)
-  LCRepo.kt                          # Spring Data repository
-  Consts.kt                          # Constants
-  WebConfig.kt                       # CORS & REST config
+│
+├── LearningCollectionApplication.kt ─── // MAIN CORTEX BOOTLOADER
+├── LearningController.kt ───────────── // REST ENDPOINT ROUTER
+├── LearningCollection.kt ───────────── // JPA ENTITY SCHEMA [id|learning|category|dateAdded]
+├── LCRepo.kt ───────────────────────── // DATA ACCESS LAYER
+├── Consts.kt ────────────────────────── // HARDCODED CONSTANTS
+└── WebConfig.kt ─────────────────────── // CORS & REST CONFIGURATION
 ```
 
-## Testing
+---
+
+## `> RUN_DIAGNOSTICS.exe`
 
 ```bash
 ./gradlew test
+# >> INITIATING NEURAL INTEGRITY SCAN <<
 ```
 
-Comprehensive test suite with 16 test files covering unit tests, integration tests, boundary/edge cases, stress tests, serialization, and property-based tests.
+> `16 test modules online` — unit tests, integration tests, boundary analysis, stress tests, serialization checks, and property-based fuzzing.
 
-## Configuration
+---
 
-Spring profiles are available for different environments:
+## `> ENV_PROFILES.cfg`
 
-| Profile | File | Notes |
-|---------|------|-------|
-| default | `application.properties` | MySQL localhost, SQL logging off |
-| dev | `application-dev.properties` | Port 8000, SQL logging on |
-| sr5 | `application-sr5.properties` | Production-like config |
+```
+┌───────────┬──────────────────────────────────┬────────────────────────────┐
+│  PROFILE  │  CONFIG FILE                     │  NOTES                     │
+├───────────┼──────────────────────────────────┼────────────────────────────┤
+│  default  │  application.properties          │  MySQL localhost, quiet    │
+│  dev      │  application-dev.properties      │  Port 8000, SQL logging ON │
+│  sr5      │  application-sr5.properties      │  Production-grade config   │
+│  sr5-2    │  application-sr5-2.properties    │  Alt production config     │
+└───────────┴──────────────────────────────────┴────────────────────────────┘
+```
+
+---
+
+<div align="center">
+
+```
+ ░▒▓ END OF LINE ▓▒░
+```
+
+</div>
