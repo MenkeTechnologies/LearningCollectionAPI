@@ -18,12 +18,12 @@
  ░  █                                                                        █  ░
  ░  █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█  ░
  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-         ▓▓▓ NEURAL KNOWLEDGE REPOSITORY // API v4.0.4 // JACKED INTO JVM ▓▓▓
+         ▓▓▓ NEURAL KNOWLEDGE REPOSITORY // API v4.0.6 // JACKED INTO JVM ▓▓▓
 ```
 
 <div align="center">
 
-### `// NEURAL KNOWLEDGE REPOSITORY v4.0.4`
+### `// NEURAL KNOWLEDGE REPOSITORY v4.0.6`
 
 > _A Spring Boot REST API for managing a personal collection of learning notes._
 > _Built with Kotlin. Jacked into the JVM._
@@ -46,12 +46,12 @@
 
 ```
 ┌──────────────────────────────────────────┐
-│  RUNTIME    :: Kotlin 2.2.21 + Spring Boot 4.0.4 │
+│  RUNTIME    :: Kotlin 2.3.20 + Spring Boot 4.0.4 │
 │  DATASTORE  :: MySQL via Spring Data JPA         │
 │  INTERFACE  :: Spring Data REST (CRUD)           │
-│  QUERY_ENG  :: QueryDSL 5.0.0 (type-safe)       │
-│  API_DOCS   :: SpringDoc OpenAPI 1.6.14          │
-│  BUILD_SYS  :: Gradle 9.2.1                     │
+│  QUERY_ENG  :: QueryDSL 5.1.0 (type-safe)       │
+│  API_DOCS   :: SpringDoc OpenAPI 1.8.0           │
+│  BUILD_SYS  :: Gradle 9.4.1                     │
 │  JDK        :: 17 (toolchain)                    │
 └──────────────────────────────────────────┘
 ```
@@ -64,8 +64,8 @@
 
 ```
 [!] JDK 17+ implant required (toolchain locked to 17)
-[!] Kotlin 2.2.21 runtime (managed by Gradle — no manual install)
-[!] Gradle 9.2.1 (use included wrapper — no manual install)
+[!] Kotlin 2.3.20 runtime (managed by Gradle — no manual install)
+[!] Gradle 9.4.1 (use included wrapper — no manual install)
 [!] MySQL daemon must be live on localhost:3306
 [!] Database 'root' must exist (default schema target)
 ```
@@ -160,7 +160,7 @@ src/main/kotlin/com/menketechnologies/learningcollection/
 # >> INITIATING NEURAL INTEGRITY SCAN <<
 ```
 
-> `16 test modules online` — unit tests, integration tests, boundary analysis, stress tests, serialization checks, and property-based fuzzing.
+> `19 test modules online` — unit tests, integration tests, boundary analysis, stress tests, serialization checks, property-based fuzzing, repo contracts, idempotency checks, and application entry tests.
 
 ---
 
