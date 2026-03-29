@@ -23,6 +23,8 @@
 
 <div align="center">
 
+[![CI](https://github.com/MenkeTechnologies/LearningCollectionAPI/actions/workflows/ci.yml/badge.svg)](https://github.com/MenkeTechnologies/LearningCollectionAPI/actions/workflows/ci.yml)
+
 ### `// NEURAL KNOWLEDGE REPOSITORY v4.0.6`
 
 > _A Spring Boot REST API for managing a personal collection of learning notes._
