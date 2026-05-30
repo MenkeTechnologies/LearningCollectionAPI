@@ -18,14 +18,14 @@
  ░  █                                                                        █  ░
  ░  █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█  ░
  ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-         ▓▓▓ NEURAL KNOWLEDGE REPOSITORY // API v4.0.6 // JACKED INTO JVM ▓▓▓
+         ▓▓▓ NEURAL KNOWLEDGE REPOSITORY // API v4.0.4 // JACKED INTO JVM ▓▓▓
 ```
 
 <div align="center">
 
 [![CI](https://github.com/MenkeTechnologies/LearningCollectionAPI/actions/workflows/ci.yml/badge.svg)](https://github.com/MenkeTechnologies/LearningCollectionAPI/actions/workflows/ci.yml)
 
-### `// NEURAL KNOWLEDGE REPOSITORY v4.0.6`
+### `// NEURAL KNOWLEDGE REPOSITORY v4.0.4`
 
 > _A Spring Boot REST API for managing a personal collection of learning notes._
 > _Built with Kotlin. Jacked into the JVM._
@@ -162,7 +162,7 @@ src/main/kotlin/com/menketechnologies/learningcollection/
 # >> INITIATING NEURAL INTEGRITY SCAN <<
 ```
 
-> `19 test modules online` — unit tests, integration tests, boundary analysis, stress tests, serialization checks, property-based fuzzing, repo contracts, idempotency checks, and application entry tests.
+> Test suite online — unit tests, integration tests, boundary analysis, stress tests, serialization checks, property-based fuzzing, repo contracts, idempotency checks, and application entry tests.
 
 ---
 
