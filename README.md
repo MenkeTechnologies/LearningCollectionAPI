@@ -36,7 +36,7 @@
 
 ```
 ╔══════════════════════════════════════════════════════════╗
-║  STATUS: ONLINE  //  PORT: 8000  //  PROFILE: dev       ║
+║  STATUS: ONLINE  //  PORT: 8080  //  PROFILE: default   ║
 ╚══════════════════════════════════════════════════════════╝
 ```
 
@@ -75,14 +75,8 @@
 ### Jack In
 
 ```bash
-# >> DEFAULT BOOT — binds to port defined in active profile <<
+# >> DEFAULT BOOT — port 8080 (Spring Boot default) <<
 ./gradlew bootRun
-
-# >> BOOT WITH DEV PROFILE — port 8000, SQL logging ON <<
-./gradlew bootRun --args='--spring.profiles.active=dev'
-
-# >> BOOT WITH PRODUCTION PROFILE <<
-./gradlew bootRun --args='--spring.profiles.active=sr5'
 ```
 
 ### Compile Firmware
@@ -97,10 +91,7 @@
 
 ```bash
 # >> EXECUTE JAR DIRECTLY <<
-java -jar build/libs/LearningCollectionAPI-0.0.1-SNAPSHOT.jar
-
-# >> EXECUTE WITH SPECIFIC PROFILE <<
-java -jar build/libs/LearningCollectionAPI-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
+java -jar build/libs/learningcollection-0.0.1-SNAPSHOT.jar
 ```
 
 ---
@@ -173,9 +164,6 @@ src/main/kotlin/com/menketechnologies/learningcollection/
 │  PROFILE  │  CONFIG FILE                     │  NOTES                     │
 ├───────────┼──────────────────────────────────┼────────────────────────────┤
 │  default  │  application.properties          │  MySQL localhost, quiet    │
-│  dev      │  application-dev.properties      │  Port 8000, SQL logging ON │
-│  sr5      │  application-sr5.properties      │  Production-grade config   │
-│  sr5-2    │  application-sr5-2.properties    │  Alt production config     │
 └───────────┴──────────────────────────────────┴────────────────────────────┘
 ```
 
