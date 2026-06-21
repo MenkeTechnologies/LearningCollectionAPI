@@ -47,15 +47,15 @@
 ## `> SYSTEM_SPECS.dat`
 
 ```
-┌──────────────────────────────────────────┐
+┌──────────────────────────────────────────────────┐
 │  RUNTIME    :: Kotlin 2.3.20 + Spring Boot 4.0.4 │
 │  DATASTORE  :: MySQL via Spring Data JPA         │
 │  INTERFACE  :: Spring Data REST (CRUD)           │
-│  QUERY_ENG  :: QueryDSL 5.1.0 (type-safe)       │
+│  QUERY_ENG  :: QueryDSL 5.1.0 (type-safe)        │
 │  API_DOCS   :: SpringDoc OpenAPI 1.8.0           │
-│  BUILD_SYS  :: Gradle 9.4.1                     │
+│  BUILD_SYS  :: Gradle 9.4.1                      │
 │  JDK        :: 17 (toolchain)                    │
-└──────────────────────────────────────────┘
+└──────────────────────────────────────────────────┘
 ```
 
 ---
