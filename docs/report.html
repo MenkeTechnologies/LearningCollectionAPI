@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="LearningCollectionAPI — engineering report. Kotlin / Spring Boot REST service backing the zsh-learn plugin: 1 controller, 10 GET endpoints, 1 JPA entity, 1 repository, 6 main source files (147 LOC) and 23 test files (6,155 LOC, 128 test methods). Spring Boot 4.0.4, Kotlin 2.3.20, MySQL via Spring Data JPA + Spring Data REST.">
+  <title>LearningCollectionAPI — Engineering Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&amp;family=Share+Tech+Mono&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="hud-static.css">
+  <link rel="stylesheet" href="tutorial.css">
+  <style>
+    .tutorial-main { max-width: 68rem; }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    .stat-card {
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--cyan);
+      padding: 0.65rem 0.85rem;
+      background: color-mix(in srgb, var(--bg-card) 92%, transparent);
+      border-radius: 2px;
+    }
+    .stat-val {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .stat-val.accent { color: var(--cyan); }
+    .stat-val.green  { color: var(--green); }
+    .stat-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-dim);
+      margin-top: 0.2rem;
+    }
+    .parity-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.6rem 0;
+      font-size: 12px;
+    }
+    .parity-table th {
+      background: var(--bg-secondary);
+      color: var(--cyan);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-align: left;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+    }
+    .parity-table td {
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      vertical-align: top;
+    }
+    .parity-table td code { color: var(--accent-light); background: var(--bg); padding: 1px 4px; }
+    .parity-table td.ok    { color: var(--green); font-weight: 700; }
+    .parity-table td.part  { color: var(--yellow); font-weight: 700; }
+    .parity-table td.miss  { color: var(--text-muted); }
+    .parity-table td.num   { text-align: right; font-variant-numeric: tabular-nums; }
+    .section-rule { border: 0; border-top: 1px dashed var(--border); margin: 2rem 0 1.5rem; }
+  </style>
+</head>
+<body>
+  <div class="app tutorial-app" id="reportApp">
+    <div class="crt-scanline" id="crtH" aria-hidden="true"></div>
+    <div class="crt-scanline-v" id="crtV" aria-hidden="true"></div>
+
+    <header class="tutorial-header">
+      <div class="tutorial-header-inner">
+        <div>
+          <h1 class="tutorial-brand">// LEARNINGCOLLECTIONAPI &mdash; ENGINEERING REPORT</h1>
+          <nav class="tutorial-crumbs" aria-label="Breadcrumb">
+            <span class="current">Engineering Report</span>
+            <span class="sep">/</span>
+            <a href="index.html">Docs</a>
+            <span class="sep">/</span>
+            <a href="https://github.com/MenkeTechnologies/LearningCollectionAPI" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <span class="sep">/</span>
+            <a href="https://github.com/MenkeTechnologies/MenkeTechnologiesMeta" target="_blank" rel="noopener noreferrer">Meta repo</a>
+          </nav>
+          <p style="margin:0.35rem 0 0;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text-dim);letter-spacing:0.03em;opacity:0.75;">
+            Kotlin 2.3.20 &middot; Spring Boot 4.0.4 &middot; Spring Data JPA + Spring Data REST &middot; MySQL &middot; QueryDSL 5.1.0 &middot; SpringDoc OpenAPI 1.8.0 &middot; Gradle 9.4.1 &middot; JDK 17 &middot; backing service for the zsh-learn plugin
+          </p>
+        </div>
+        <div class="tutorial-toolbar">
+          <button type="button" class="btn btn-secondary" id="btnTheme" title="Toggle light/dark">Theme</button>
+          <button type="button" class="btn btn-secondary active" id="btnCrt" title="CRT scanline overlay">CRT</button>
+          <button type="button" class="btn btn-secondary active" id="btnNeon" title="Neon border pulse">Neon</button>
+          <a class="btn btn-secondary" href="index.html">Docs</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="tutorial-main">
+
+      <h2 class="tutorial-title"><span class="step-hash">&gt;_</span>EXECUTIVE SUMMARY</h2>
+      <p class="tutorial-subtitle"><strong>LearningCollectionAPI</strong> is a Kotlin / Spring Boot REST service that persists &ldquo;learnings&rdquo; &mdash; short notes / vocabulary cards &mdash; into MySQL, and serves them back for search and quiz. It is the HTTP backing store for the <strong>zsh-learn</strong> shell plugin. The data model is a single JPA entity (<code>LearningCollection</code>: <code>id</code>, <code>learning</code>, <code>category</code>, <code>dateAdded</code>). The interface is split across one hand-written controller (ten <code>GET</code> endpoints tuned for shell calls) and the Spring Data REST auto-generated CRUD surface under <code>/learning</code>.</p>
+      <p class="tutorial-subtitle">The codebase is deliberately small &mdash; 6 main Kotlin files totalling 147 LOC &mdash; but carries a disproportionately large test suite: 23 test files, 6,155 LOC, 128 test methods (118 <code>@Test</code> + 10 <code>@ParameterizedTest</code>). The test-to-main LOC ratio is roughly 42:1, covering controller routes, the entity schema, repository contracts, CORS config, serialization, edge cases, idempotency, stress, and property-based fuzzing.</p>
+
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-val">1</div><div class="stat-label">REST controller</div></div>
+        <div class="stat-card"><div class="stat-val accent">10</div><div class="stat-label">GET endpoints</div></div>
+        <div class="stat-card"><div class="stat-val">1</div><div class="stat-label">JPA entity</div></div>
+        <div class="stat-card"><div class="stat-val">1</div><div class="stat-label">Repository</div></div>
+        <div class="stat-card"><div class="stat-val">6</div><div class="stat-label">Main .kt files</div></div>
+        <div class="stat-card"><div class="stat-val">147</div><div class="stat-label">Main LOC</div></div>
+        <div class="stat-card"><div class="stat-val">23</div><div class="stat-label">Test .kt files</div></div>
+        <div class="stat-card"><div class="stat-val accent">6,155</div><div class="stat-label">Test LOC</div></div>
+        <div class="stat-card"><div class="stat-val green">128</div><div class="stat-label">Test methods</div></div>
+        <div class="stat-card"><div class="stat-val">4</div><div class="stat-label">Entity fields</div></div>
+        <div class="stat-card"><div class="stat-val">2</div><div class="stat-label">Derived queries</div></div>
+        <div class="stat-card"><div class="stat-val accent">8080</div><div class="stat-label">Default port</div></div>
+      </div>
+
+      <hr class="section-rule">
+      <h2 class="tutorial-title"><span class="step-hash">~</span>REST SURFACE</h2>
+      <p class="tutorial-subtitle">Ten <code>@GetMapping</code> handlers on a single <code>@RestController</code>. Every operation is a <code>GET</code> &mdash; query param (<code>/add</code>, <code>/filter</code>) or path variable (<code>{count}</code>) &mdash; so the zsh-learn plugin can call them with a bare <code>curl</code>. &ldquo;Text only&rdquo; responses return just the <code>learning</code> strings; &ldquo;full&rdquo; responses return complete records.</p>
+
+      <table class="parity-table">
+        <thead>
+          <tr><th>Method</th><th>Path</th><th>Handler</th><th>Behavior</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="ok">GET</td><td><code>/add</code></td><td><code>add</code></td><td>Persists a new learning (category <code>"programming"</code>, dateAdded now); returns the saved entity.</td></tr>
+          <tr><td class="ok">GET</td><td><code>/filter</code></td><td><code>filterLearn</code></td><td>Substring search (<code>findAllByLearningContaining</code>); returns matching text.</td></tr>
+          <tr><td class="ok">GET</td><td><code>/recents</code></td><td><code>learningItemRecentShortDefault</code></td><td>Last 20 (<code>SHORT_CNT</code>) learnings, text only.</td></tr>
+          <tr><td class="ok">GET</td><td><code>/recents/{count}</code></td><td><code>getLearningItemRecentShort</code></td><td>Last <code>{count}</code> learnings, text only.</td></tr>
+          <tr><td class="ok">GET</td><td><code>/recent/{count}</code></td><td><code>getLearningItemRecent</code></td><td>Last <code>{count}</code> learnings, full records.</td></tr>
+          <tr><td class="ok">GET</td><td><code>/random</code></td><td><code>learningItem</code></td><td>One random learning, full record.</td></tr>
+          <tr><td class="ok">GET</td><td><code>/randoms</code></td><td><code>learningItemCountShort</code></td><td>One random learning, text only.</td></tr>
+          <tr><td class="ok">GET</td><td><code>/randoms/{count}</code></td><td><code>getLearningItemCountShort</code></td><td><code>{count}</code> random learnings, text only.</td></tr>
+          <tr><td class="ok">GET</td><td><code>/random/{count}</code></td><td><code>getLearningItemCount</code></td><td><code>{count}</code> random learnings, full records.</td></tr>
+          <tr><td class="ok">GET</td><td><code>/dump</code></td><td><code>getDump</code></td><td>Streams <code>mysqldump --extended-insert=FALSE root</code> to the response writer.</td></tr>
+        </tbody>
+      </table>
+      <p>Recency = <code>findAll().reversed()</code> (newest-inserted first); randomness = <code>findAll().shuffled()</code>. Both load the full table into memory before slicing &mdash; acceptable at the personal-collection scale this serves.</p>
+
+      <hr class="section-rule">
+      <h2 class="tutorial-title"><span class="step-hash">$</span>DATA MODEL</h2>
+      <p class="tutorial-subtitle">A single entity, <code>LearningCollection</code> (<code>@Table(name = "LearningCollection")</code>), implementing <code>Serializable</code>. Four columns, IDENTITY-generated primary key.</p>
+
+      <table class="parity-table">
+        <thead><tr><th>Field</th><th>Kotlin type</th><th>JPA annotation</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td><code>id</code></td><td><code>Long</code></td><td><code>@Id @GeneratedValue(strategy = IDENTITY)</code></td><td>Auto-increment PK.</td></tr>
+          <tr><td><code>learning</code></td><td><code>String</code></td><td><code>@Column</code></td><td>The learning content.</td></tr>
+          <tr><td><code>category</code></td><td><code>String</code></td><td><code>@Column</code></td><td>Defaults to <code>"programming"</code> on create.</td></tr>
+          <tr><td><code>dateAdded</code></td><td><code>java.util.Date</code></td><td><code>@Column</code></td><td>Creation timestamp (<code>Date()</code>).</td></tr>
+        </tbody>
+      </table>
+      <p><code>LCRepo</code> extends <code>CrudRepository&lt;LearningCollection, Long&gt;</code> and declares two derived query methods: <code>findAllByLearningContaining</code> (used by <code>/filter</code>) and <code>findAllByCategoryContaining</code> (exposed via Spring Data REST search, not wired to a controller route). The <code>@RepositoryRestResource(path = "learning")</code> annotation auto-publishes full CRUD under <code>/learning</code>.</p>
+
+      <hr class="section-rule">
+      <h2 class="tutorial-title"><span class="step-hash">%</span>SOURCE INVENTORY</h2>
+      <p class="tutorial-subtitle">Six main Kotlin files under <code>src/main/kotlin/com/menketechnologies/learningcollection/</code>, totalling 147 LOC.</p>
+
+      <table class="parity-table">
+        <thead><tr><th>File</th><th>Role</th></tr></thead>
+        <tbody>
+          <tr><td><code>LearningCollectionApplication.kt</code></td><td><code>@SpringBootApplication</code> bootloader with <code>main</code> entrypoint.</td></tr>
+          <tr><td><code>LearningController.kt</code></td><td><code>@RestController</code> &mdash; the 10 <code>@GetMapping</code> endpoints; <code>@Autowired</code> <code>LCRepo</code>.</td></tr>
+          <tr><td><code>LearningCollection.kt</code></td><td><code>@Entity</code> &mdash; the 4-field schema, two constructors, <code>serialVersionUID</code>.</td></tr>
+          <tr><td><code>LCRepo.kt</code></td><td><code>CrudRepository</code> + <code>@RepositoryRestResource</code>; 2 derived query methods.</td></tr>
+          <tr><td><code>Consts.kt</code></td><td>Top-level constants: <code>SHORT_CNT</code>, <code>DB_NAME</code>, <code>DEFAULT_CAT</code>, <code>DUMP</code>.</td></tr>
+          <tr><td><code>WebConfig.kt</code></td><td><code>WebMvcConfigurer</code> + <code>RepositoryRestConfigurer</code> &mdash; opens CORS on <code>/**</code> for both layers.</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="section-rule">
+      <h2 class="tutorial-title"><span class="step-hash">!</span>TEST COVERAGE</h2>
+      <p class="tutorial-subtitle">23 test files, 6,155 LOC, 128 test methods (118 <code>@Test</code> + 10 <code>@ParameterizedTest</code>), run on JUnit 5 (<code>useJUnitPlatform</code>) with <code>kotlin-test-junit5</code>, <code>spring-boot-starter-test</code>, and <code>mockito-kotlin</code>. The suite is far larger than the production code it exercises &mdash; controller, entity, repository, and config each carry multiple dedicated test classes.</p>
+
+      <table class="parity-table">
+        <thead><tr><th>Area</th><th>Test files</th></tr></thead>
+        <tbody>
+          <tr><td>Controller</td><td><code>LearningControllerTest</code>, <code>LearningControllerBoundaryTest</code>, <code>LearningControllerCombinationTest</code>, <code>LearningControllerDataFlowTest</code>, <code>LearningControllerEndpointMatrixTest</code>, <code>LearningControllerErrorPathTest</code>, <code>LearningControllerIdempotencyTest</code>, <code>LearningControllerRouteContractTest</code>, <code>LearningControllerStressTest</code></td></tr>
+          <tr><td>Entity</td><td><code>LearningCollectionTest</code>, <code>LearningCollectionContractTest</code>, <code>LearningCollectionEdgeCaseTest</code>, <code>LearningCollectionInvariantTest</code>, <code>LearningCollectionPropertyTest</code>, <code>LearningCollectionSchemaContractTest</code>, <code>LearningCollectionSerializationTest</code></td></tr>
+          <tr><td>Repository</td><td><code>LCRepoContractTest</code></td></tr>
+          <tr><td>Config / constants</td><td><code>ConstsTest</code>, <code>ConstsExtendedTest</code>, <code>WebConfigTest</code>, <code>WebConfigExtendedTest</code></td></tr>
+          <tr><td>Application</td><td><code>LearningCollectionApplicationTests</code>, <code>LearningCollectionApplicationEntryTest</code></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.8rem;">Per the README, the suite spans unit tests, integration tests, boundary analysis, stress tests, serialization checks, property-based fuzzing, repository contracts, idempotency checks, and application-entry tests. Run with <code>./gradlew test</code>.</p>
+
+      <hr class="section-rule">
+      <h2 class="tutorial-title"><span class="step-hash">&amp;</span>DEPENDENCY MANIFEST</h2>
+      <p class="tutorial-subtitle">From <code>build.gradle.kts</code>. Spring Boot version is managed by the <code>org.springframework.boot</code> plugin (4.0.4) plus <code>io.spring.dependency-management</code> (1.1.7); unversioned starters inherit from the BOM.</p>
+
+      <table class="parity-table">
+        <thead><tr><th>Dependency</th><th>Version</th><th>Scope</th></tr></thead>
+        <tbody>
+          <tr><td><code>spring-boot-starter-data-jpa</code></td><td>(BOM) 4.0.4</td><td>implementation</td></tr>
+          <tr><td><code>spring-boot-starter-data-rest</code></td><td>(BOM) 4.0.4</td><td>implementation</td></tr>
+          <tr><td><code>jackson-module-kotlin</code></td><td>(BOM)</td><td>implementation</td></tr>
+          <tr><td><code>kotlin-reflect</code></td><td>2.3.20</td><td>implementation</td></tr>
+          <tr><td><code>querydsl-jpa</code> / <code>querydsl-apt</code></td><td>5.1.0</td><td>implementation</td></tr>
+          <tr><td><code>springdoc-openapi-ui</code> / <code>springdoc-openapi-data-rest</code></td><td>1.8.0</td><td>implementation</td></tr>
+          <tr><td><code>lombok</code></td><td>(BOM)</td><td>compileOnly + annotationProcessor</td></tr>
+          <tr><td><code>mysql-connector-j</code></td><td>(BOM)</td><td>runtimeOnly</td></tr>
+          <tr><td><code>kotlin-test-junit5</code></td><td>2.3.20</td><td>testImplementation</td></tr>
+          <tr><td><code>spring-boot-starter-test</code></td><td>(BOM)</td><td>testImplementation</td></tr>
+          <tr><td><code>mockito-kotlin</code></td><td>6.3.0</td><td>testImplementation</td></tr>
+          <tr><td><code>junit-platform-launcher</code></td><td>(BOM)</td><td>testRuntimeOnly</td></tr>
+        </tbody>
+      </table>
+      <p>Kotlin plugins: <code>jvm</code>, <code>plugin.spring</code>, <code>plugin.jpa</code> (all 2.3.20). Compiler arg <code>-Xjsr305=strict</code>. <code>allOpen</code> opens <code>@Entity</code> / <code>@MappedSuperclass</code> / <code>@Embeddable</code> classes for JPA proxying. Java toolchain pinned to 17.</p>
+
+      <hr class="section-rule">
+      <h2 class="tutorial-title"><span class="step-hash">@</span>RUNTIME &amp; PERSISTENCE</h2>
+      <p class="tutorial-subtitle">From <code>src/main/resources/application.properties</code>.</p>
+      <table class="parity-table">
+        <thead><tr><th>Setting</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Datasource URL</td><td><code>jdbc:mysql://localhost:3306/root?useUnicode=true&amp;serverTimezone=UTC&amp;&hellip;</code></td></tr>
+          <tr><td>Username</td><td><code>root</code></td></tr>
+          <tr><td>Password</td><td><em>(empty)</em></td></tr>
+          <tr><td>show-sql</td><td><code>false</code></td></tr>
+          <tr><td>Naming strategy</td><td><code>PhysicalNamingStrategyStandardImpl</code></td></tr>
+          <tr><td>HTTP port</td><td><code>8080</code> (Spring Boot default)</td></tr>
+        </tbody>
+      </table>
+
+      <hr class="section-rule">
+      <h2 class="tutorial-title"><span class="step-hash">/</span>PROJECT METADATA</h2>
+      <table class="parity-table">
+        <thead><tr><th>Item</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Group / version</td><td><code>com.menketechnologies</code> / <code>0.0.1-SNAPSHOT</code></td></tr>
+          <tr><td>Root project</td><td><code>learningcollection</code></td></tr>
+          <tr><td>Language / runtime</td><td>Kotlin 2.3.20 on JVM (JDK 17 toolchain)</td></tr>
+          <tr><td>Framework</td><td>Spring Boot 4.0.4 (Data JPA + Data REST)</td></tr>
+          <tr><td>Build system</td><td>Gradle 9.4.1 (wrapper)</td></tr>
+          <tr><td>Author</td><td><a href="https://github.com/MenkeTechnologies" target="_blank" rel="noopener noreferrer">MenkeTechnologies</a></td></tr>
+          <tr><td>Repository</td><td><a href="https://github.com/MenkeTechnologies/LearningCollectionAPI" target="_blank" rel="noopener noreferrer">github.com/MenkeTechnologies/LearningCollectionAPI</a></td></tr>
+          <tr><td>Issues</td><td><a href="https://github.com/MenkeTechnologies/LearningCollectionAPI/issues" target="_blank" rel="noopener noreferrer">github.com/MenkeTechnologies/LearningCollectionAPI/issues</a></td></tr>
+          <tr><td>Umbrella</td><td><a href="https://github.com/MenkeTechnologies/MenkeTechnologiesMeta" target="_blank" rel="noopener noreferrer">MenkeTechnologiesMeta</a></td></tr>
+          <tr><td>Docs home</td><td><a href="https://menketechnologies.github.io/LearningCollectionAPI/" target="_blank" rel="noopener noreferrer">menketechnologies.github.io/LearningCollectionAPI</a></td></tr>
+        </tbody>
+      </table>
+
+    </main>
+  </div>
+  <script src="hud-theme.js"></script>
+</body>
+</html>

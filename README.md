@@ -32,6 +32,8 @@
 
 **`[ CREATED BY ]`** [MenkeTechnologies](https://github.com/MenkeTechnologies)
 
+### [`Read the Docs`](https://menketechnologies.github.io/LearningCollectionAPI/) &middot; [`Engineering Report`](https://menketechnologies.github.io/LearningCollectionAPI/report.html)
+
 ---
 
 ```
