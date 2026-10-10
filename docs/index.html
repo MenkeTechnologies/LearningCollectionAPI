@@ -178,7 +178,7 @@ java -jar build/libs/learningcollection-0.0.1-SNAPSHOT.jar
 <pre># save a learning (category defaults to "programming")
 curl 'http://localhost:8080/add?learning=zsh+globbing+qualifiers'
 
-# search by substring (case-sensitive LIKE %text%)
+# search by substring (LIKE %text%)
 curl 'http://localhost:8080/filter?learning=zsh'
 
 # quiz: one random learning, full record

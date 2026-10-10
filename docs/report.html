@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark light">
-  <meta name="description" content="LearningCollectionAPI — engineering report. Kotlin / Spring Boot REST service backing the zsh-learn plugin: 1 controller, 10 GET endpoints, 1 JPA entity, 1 repository, 6 main source files (147 LOC) and 23 test files (6,155 LOC, 128 test methods). Spring Boot 4.0.4, Kotlin 2.3.20, MySQL via Spring Data JPA + Spring Data REST.">
+  <meta name="description" content="LearningCollectionAPI — engineering report. Kotlin / Spring Boot REST service backing the zsh-learn plugin: 1 controller, 10 GET endpoints, 1 JPA entity, 1 repository, 6 main source files (147 LOC) and 23 test files (6,155 LOC). Spring Boot 4.0.4, Kotlin 2.3.20, MySQL via Spring Data JPA + Spring Data REST.">
   <title>LearningCollectionAPI — Engineering Report</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -109,7 +109,7 @@
 
       <h2 class="tutorial-title"><span class="step-hash">&gt;_</span>EXECUTIVE SUMMARY</h2>
       <p class="tutorial-subtitle"><strong>LearningCollectionAPI</strong> is a Kotlin / Spring Boot REST service that persists &ldquo;learnings&rdquo; &mdash; short notes / vocabulary cards &mdash; into MySQL, and serves them back for search and quiz. It is the HTTP backing store for the <strong>zsh-learn</strong> shell plugin. The data model is a single JPA entity (<code>LearningCollection</code>: <code>id</code>, <code>learning</code>, <code>category</code>, <code>dateAdded</code>). The interface is split across one hand-written controller (ten <code>GET</code> endpoints tuned for shell calls) and the Spring Data REST auto-generated CRUD surface under <code>/learning</code>.</p>
-      <p class="tutorial-subtitle">The codebase is deliberately small &mdash; 6 main Kotlin files totalling 147 LOC &mdash; but carries a disproportionately large test suite: 23 test files, 6,155 LOC, 128 test methods (118 <code>@Test</code> + 10 <code>@ParameterizedTest</code>). The test-to-main LOC ratio is roughly 42:1, covering controller routes, the entity schema, repository contracts, CORS config, serialization, edge cases, idempotency, stress, and property-based fuzzing.</p>
+      <p class="tutorial-subtitle">The codebase is deliberately small &mdash; 6 main Kotlin files totalling 147 LOC &mdash; but carries a disproportionately large test suite: 23 test files, 6,155 LOC. The test-to-main LOC ratio is roughly 42:1, covering controller routes, the entity schema, repository contracts, CORS config, serialization, edge cases, idempotency, stress, and property-based fuzzing.</p>
 
       <div class="stat-grid">
         <div class="stat-card"><div class="stat-val">1</div><div class="stat-label">REST controller</div></div>
@@ -120,7 +120,6 @@
         <div class="stat-card"><div class="stat-val">147</div><div class="stat-label">Main LOC</div></div>
         <div class="stat-card"><div class="stat-val">23</div><div class="stat-label">Test .kt files</div></div>
         <div class="stat-card"><div class="stat-val accent">6,155</div><div class="stat-label">Test LOC</div></div>
-        <div class="stat-card"><div class="stat-val green">128</div><div class="stat-label">Test methods</div></div>
         <div class="stat-card"><div class="stat-val">4</div><div class="stat-label">Entity fields</div></div>
         <div class="stat-card"><div class="stat-val">2</div><div class="stat-label">Derived queries</div></div>
         <div class="stat-card"><div class="stat-val accent">8080</div><div class="stat-label">Default port</div></div>
@@ -182,7 +181,7 @@
 
       <hr class="section-rule">
       <h2 class="tutorial-title"><span class="step-hash">!</span>TEST COVERAGE</h2>
-      <p class="tutorial-subtitle">23 test files, 6,155 LOC, 128 test methods (118 <code>@Test</code> + 10 <code>@ParameterizedTest</code>), run on JUnit 5 (<code>useJUnitPlatform</code>) with <code>kotlin-test-junit5</code>, <code>spring-boot-starter-test</code>, and <code>mockito-kotlin</code>. The suite is far larger than the production code it exercises &mdash; controller, entity, repository, and config each carry multiple dedicated test classes.</p>
+      <p class="tutorial-subtitle">23 test files, 6,155 LOC, run on JUnit 5 (<code>useJUnitPlatform</code>) with <code>kotlin-test-junit5</code>, <code>spring-boot-starter-test</code>, and <code>mockito-kotlin</code>. The suite is far larger than the production code it exercises &mdash; controller, entity, repository, and config each carry multiple dedicated test classes.</p>
 
       <table class="parity-table">
         <thead><tr><th>Area</th><th>Test files</th></tr></thead>
